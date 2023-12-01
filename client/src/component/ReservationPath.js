@@ -85,10 +85,18 @@ const ReservationPath = () => {
                 </h1>
                 <div
                     style={{
+                        display: "flex",
+                        flexDirection: "column",
                         justifyContent: "center",
+                        alignItems: "center",
+                        minHeight: "100vh",
                     }}
                 >
-                    <Form>
+                    <Form style={{display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    minHeight: "100vh",}}>
                         <DatePicker onChange={onDateChange} />
                     </Form>
                     <div>

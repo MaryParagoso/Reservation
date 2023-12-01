@@ -37,7 +37,7 @@ const SeatLayout = () => {
     >
       <div style={{ textAlign: "center", paddingTop: "100px" }}>
         <h1 style={{ fontWeight: "bold", color: "white" }}>Seat Map</h1>
-        <div style={{ border: "1px solid red" }}>
+        <div>
           <SeatMap
             seatData={seatData}
             onSeatClick={handleSeatClick}
