@@ -43,7 +43,6 @@ const SeatLayout = () => {
             onSeatClick={handleSeatClick}
             bookedSeats={bookedSeats}
           />
-
           <button onClick={handleProceedClick}>Proceed</button>
         </div>
       </div>
