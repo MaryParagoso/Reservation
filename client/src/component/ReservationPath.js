@@ -1,113 +1,97 @@
-import React, { useEffect, useState } from "react";
-import { DatePicker, Form, Select } from "antd";
+import React from "react";
+import { Form, Select } from "antd";
 import { Container, CancelWallpaper } from "../stylesheets/CssCancellation";
 import { Button } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
-import { format } from "date-fns";
-import MovieCard from "./movie_card";
+import { CancelContainer } from "../stylesheets/CssCancellation";
+import { Link } from "react-router-dom";
 
 const { Option } = Select;
 
-const ReservationPath = () => {
-    const [movieList, setMovieList] = useState([]);
-    const [selectedDate, setSelectedDate] = useState([]);
-    const [state, setState] = useState([]);
+const ReservationPath = ({ selectedDate, onDateChange, onBackButtonClick }) => {
+  const generateDateOptions = () => {
+    const today = new Date();
+    const dateOptions = [];
 
-    const onDateChange = (date) => {
-        const selectedDate = date ? new Date(date) : null;
-        const formattedDate = selectedDate
-            ? format(selectedDate, "yyyy-MM-dd")
-            : null;
+    for (let i = 0; i < 7; i++) {
+      const date = new Date();
+      date.setDate(today.getDate() + i);
+      const formattedDate = date.toISOString().split("T")[0];
+      dateOptions.push(formattedDate);
+    }
 
-        if (!formattedDate) {
-            setMovieList(state);
-            setSelectedDate(null);
-            return;
-        }
+    return dateOptions;
+  };
 
-        const filteredList = state.filter((movie) => {
-            return movie.startDate && movie.startDate.includes(formattedDate);
-        });
-
-        setMovieList(filteredList);
-        setSelectedDate(date);
-    };
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch(
-                    "http://localhost:5000/api/movies/all"
-                );
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-                const movieData = await response.json();
-
-                console.log(movieData);
-                setState(movieData);
-                setMovieList(movieData);
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            }
-        };
-
-        fetchData();
-    }, []);
-
-    return (
-        <Container>
-            <CancelWallpaper>
-                <div
+  return (
+    <Container>
+      <CancelWallpaper>
+        <div
+          style={{
+            paddingTop: "20px",
+            textAlign: "left",
+            marginLeft: "20px",
+          }}
+        >
+          <Button
+            style={{
+              backgroundColor: "rgba(255, 255, 255, 0.816)",
+              width: "40px",
+            }}
+            type="default"
+            icon={<ArrowLeftOutlined />}
+            onClick={onBackButtonClick} // Use the provided back button click handler
+          ></Button>
+        </div>
+        <h1
+          style={{
+            paddingTop: "80px",
+            fontWeight: "bold",
+            textAlign: "center",
+          }}
+        >
+          Reservation
+        </h1>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <CancelContainer
+            style={{
+              alignItems: "center",
+            }}
+          >
+            <Form>
+              <div style={{ backgroundColor: "white" }}>
+                <Form.Item label="Select a Date:">
+                  <Select
                     style={{
-                        paddingTop: "20px",
-                        textAlign: "left",
-                        marginLeft: "20px",
+                      width: "100%",
+                      minWidth: "200px",
+                      border: "1px solid red",
                     }}
-                >
-                    <Button
-                        style={{
-                            backgroundColor: "rgba(255, 255, 255, 0.816)",
-                            width: "40px",
-                        }}
-                        type="default"
-                        icon={<ArrowLeftOutlined />}
-                    ></Button>
-                </div>
-                <h1
-                    style={{
-                        paddingTop: "80px",
-                        fontWeight: "bold",
-                        textAlign: "center",
-                    }}
-                >
-                    Reservation
-                </h1>
-                <div
-                    style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        minHeight: "100vh",
-                    }}
-                >
-                    <Form style={{display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    minHeight: "100vh",}}>
-                        <DatePicker onChange={onDateChange} />
-                    </Form>
-                    <div>
-                        {movieList.map((movie, index) => (
-                            <MovieCard key={index} movieDetails={movie} />
-                        ))}
-                    </div>
-                </div>
-            </CancelWallpaper>
-        </Container>
-    );
+                    value={selectedDate}
+                    onChange={onDateChange}
+                  >
+                    {generateDateOptions().map((date) => (
+                      <Option key={date} value={date}>
+                        {date}
+                      </Option>
+                    ))}
+                  </Select>
+                </Form.Item>
+              </div>
+              <Link to="/movielist">
+                <Button>Proceed</Button>
+              </Link>
+            </Form>
+          </CancelContainer>
+        </div>
+      </CancelWallpaper>
+    </Container>
+  );
 };
 
 export default ReservationPath;

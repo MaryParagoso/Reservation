@@ -6,6 +6,7 @@ import CancellationPath from "../component/CancellationPath";
 class MenuPage extends Component {
   constructor(props) {
     super(props);
+
     // Initialize state using the constructor
     this.state = {
       selectedOption: null,
@@ -15,6 +16,7 @@ class MenuPage extends Component {
 
     // Bind the method to the current instance
     this.handleButtonClick = this.handleButtonClick.bind(this);
+    this.handleProceedClick = this.handleProceedClick.bind(this);
   }
 
   // Method to handle button click
@@ -22,6 +24,15 @@ class MenuPage extends Component {
     this.setState({
       selectedOption: choice,
     });
+  }
+
+  // Method to handle Proceed button click
+  handleProceedClick() {
+    // Handle the logic for proceeding after selecting a date
+    // You can perform any necessary actions here
+
+    // For example, you can navigate to the next screen or submit the reservation
+    alert(`Proceeding with reservation on ${this.state.selectedDate}`);
   }
 
   render() {
@@ -35,10 +46,26 @@ class MenuPage extends Component {
           <div>
             {selectedOption === "Reserve" ? (
               <ReservationPath
+                selectedDate={selectedDate}
+                onDateChange={(selectedDate) => this.setState({ selectedDate })}
               />
             ) : (
               <CancellationPath
+                selectedReservation={selectedReservation}
+                onReservationChange={(selectedReservation) =>
+                  this.setState({ selectedReservation })
+                }
               />
+            )}
+
+            {/* Place the Proceed button after the selected options */}
+            {selectedOption && (
+              <div>
+                <p>Selected Option: {selectedOption}</p>
+                {selectedOption === "Reserve" && selectedDate && (
+                  <button onClick={this.handleProceedClick}>Proceed</button>
+                )}
+              </div>
             )}
           </div>
         )}

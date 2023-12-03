@@ -26,22 +26,21 @@ app.use("/api/movies", moviesRoutes);
 app.use("/api/tickets", ticketsRoutes);
 app.use("/api/users", userRoutes);
 
-
 mongoose.set({ strictQuery: true });
 mongoose
-    .connect(
-        "mongodb+srv://Ayannn:Strygwyr7@cluster0.qzo8ec2.mongodb.net/Movies"
-    )
-    .then(() => {
-        app.listen(
-            process.env.PORT || 5000,
-            console.log("Now connected to MongoDB Atlas"),
-            console.log(`Server is running at port ${process.env.PORT || 5000}`)
-        );
-    })
-    .catch((err) => {
-        console.log(err);
-    });
+  .connect(
+    "mongodb+srv://bacoldeannahaws:aDdF5EGN9luxZFfz@cluster0.pbdtb2q.mongodb.net/MovieReservation"
+  )
+  .then(() => {
+    app.listen(
+      process.env.PORT || 5000,
+      console.log("Now connected to MongoDB Atlas"),
+      console.log(`Server is running at port ${process.env.PORT || 5000}`)
+    );
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
 // mongoose
 //     .connect(

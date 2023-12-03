@@ -49,7 +49,7 @@ const MovieTime = styled.span`
 const MovieComponent = ({ movie }) => {
   return (
     <MovieContainer>
-      <CoverImage src={movie.poster} />
+      <CoverImage src={movie.image} />
       <MovieName>{movie.title}</MovieName>
       <InfoColumn>
         <span>Year: {movie.year}</span>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Header,
@@ -12,11 +12,37 @@ import {
 } from "../stylesheets/Cssmovielist";
 import SearchInput from "../component/SearchInput";
 import MovieComponent from "../component/MovieComp";
-import { moviesData } from "../component/MoviesData";
+import { useNavigate } from "react-router-dom";
 
 function Movielist() {
+  const navigate = useNavigate();
   const [searchQuery, updateSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [displayedMovies, setDisplayedMovies] = useState([]);
+
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/movies/all");
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch movies");
+        }
+
+        const movieData = await response.json();
+        setDisplayedMovies(movieData);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+
+    fetchMovies();
+  }, []);
+
+  function moveToSeatLayout() {
+    console.log("asd");
+    navigate("/seat-layout");
+  }
 
   const onTextChange = (event) => {
     updateSearchQuery(event.target.value);
@@ -31,7 +57,7 @@ function Movielist() {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 
-  const displayedMovies = moviesData.slice(startIndex, endIndex);
+  // const displayedMovies = moviesData.slice(startIndex, endIndex);
 
   return (
     <Container>
@@ -52,7 +78,9 @@ function Movielist() {
       </Header>
       <MovielistContainer>
         {displayedMovies.map((movie, index) => (
-          <MovieComponent key={index} movie={movie} />
+          <Button onClick={moveToSeatLayout}>
+            <MovieComponent key={index} movie={movie} />
+          </Button>
         ))}
       </MovielistContainer>
     </Container>

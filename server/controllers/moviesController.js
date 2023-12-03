@@ -31,6 +31,30 @@ const addMovies = async (req, res) => {
     }
 };
 
+const addManyMovies = async (req, res) => {
+    const moviesToAdd = req.body; // Assuming req.body is an array of movie objects
+
+    try {
+        // Check if any of the movies already exist
+        // const existingMovies = await Movie.find({
+        //     movieTitle: { $in: moviesToAdd.map(movie => movie.movieTitle) }
+        // });
+
+        // if (existingMovies.length > 0) {
+        //     const duplicateTitles = existingMovies.map(movie => movie.movieTitle);
+        //     return res.status(400).json({ message: `Movies with titles ${duplicateTitles.join(', ')} already exist` });
+        // }
+
+        // Create multiple movies
+        const addedMovies = await Movie.create(moviesToAdd);
+
+        res.status(200).json(addedMovies);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
+
 const updateMovie = async (req, res) => {
     const {
         movieId,
@@ -83,4 +107,4 @@ const deleteMovie = async (req, res) => {
     }
 };
 
-module.exports = { getMovies, addMovies, updateMovie, deleteMovie };
+module.exports = { getMovies, addMovies, updateMovie, deleteMovie, addManyMovies };

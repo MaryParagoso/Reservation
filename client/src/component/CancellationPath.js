@@ -9,11 +9,17 @@ import {
 import reservationNumbers from "./ReservationNumber";
 import { Button } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
-import TicketTable from "./ticketTable";
 
 const { Option } = Select;
 
-const CancellationPath = () => {
+const CancellationPath = ({
+  selectedReservation,
+  onReservationChange,
+  onBackButtonClick,
+}) => {
+  const handleBackButtonClick = () => {
+    onBackButtonClick();
+  };
 
   return (
     <Container>
@@ -25,7 +31,7 @@ const CancellationPath = () => {
             marginLeft: "20px",
           }}
         >
-          {/* <Button
+          <Button
             style={{
               backgroundColor: "rgba(255, 255, 255, 0.816)",
               width: "40px",
@@ -33,7 +39,7 @@ const CancellationPath = () => {
             type="default"
             icon={<ArrowLeftOutlined />}
             onClick={handleBackButtonClick}
-          ></Button> */}
+          ></Button>
         </div>
         <h1
           style={{
@@ -50,7 +56,37 @@ const CancellationPath = () => {
             justifyContent: "center",
           }}
         >
-            <TicketTable />
+          <CancelContainer
+            style={{ alignItems: "center", border: "1px red solid" }}
+          >
+            <Form>
+              <Form.Item
+                label="Search and Select Reservation:"
+                style={{ fontWeight: "bold", paddingTop: "10px" }}
+              >
+                <SelectContainer>
+                  <Select
+                    showSearch
+                    value={selectedReservation}
+                    onChange={onReservationChange}
+                    optionFilterProp="children"
+                    filterOption={(input, option) =>
+                      option.children
+                        .toLowerCase()
+                        .indexOf(input.toLowerCase()) >= 0
+                    }
+                    style={{ width: "100%", minWidth: "200px" }}
+                  >
+                    {reservationNumbers.map((reservation) => (
+                      <Option key={reservation} value={reservation}>
+                        {reservation}
+                      </Option>
+                    ))}
+                  </Select>
+                </SelectContainer>
+              </Form.Item>
+            </Form>
+          </CancelContainer>
         </div>
       </CancelWallpaper>
     </Container>
