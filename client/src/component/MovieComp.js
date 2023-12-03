@@ -47,12 +47,20 @@ const MovieTime = styled.span`
 `;
 
 const MovieComponent = ({ movie }) => {
+  const startDate = new Date(movie.startDate);
+
+  // Get the formatted date
+  const formattedDate = startDate.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
   return (
     <MovieContainer>
       <CoverImage src={movie.image} />
-      <MovieName>{movie.title}</MovieName>
+      <MovieName>{movie.movieTitle}</MovieName>
       <InfoColumn>
-        <span>Year: {movie.year}</span>
+        <span>Date: {formattedDate}</span>
         <span>Genre: {movie.genre}</span>
         <MovieTime>Time: {movie.time}</MovieTime>
       </InfoColumn>
