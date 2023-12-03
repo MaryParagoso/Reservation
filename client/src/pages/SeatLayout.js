@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import SeatMap from "../component/SeatMap";
 import seatData from "../component/SeatData";
+import { Link } from "react-router-dom";
 
 const SeatLayout = () => {
   const [selectedSeats, setSelectedSeats] = useState([]);
@@ -43,7 +44,9 @@ const SeatLayout = () => {
             onSeatClick={handleSeatClick}
             bookedSeats={bookedSeats}
           />
-          <button onClick={handleProceedClick}>Proceed</button>
+          <Link to="/confirmation">
+            <button onClick={handleProceedClick}>Proceed</button>
+          </Link>
         </div>
       </div>
     </div>
