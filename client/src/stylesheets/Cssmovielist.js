@@ -78,3 +78,14 @@ export const Button = styled.div`
     backdrop-filter: blur(5px);
   }
 `;
+
+export const SearchInput = styled.input`
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  outline: none;
+  margin-left: 15px;
+  box-shadow: 0 0 12px grey;
+  width: 85%;
+`;

@@ -9,8 +9,8 @@ import {
   MovielistContainer,
   ButtonContainer,
   Button,
+  SearchInput,
 } from "../stylesheets/Cssmovielist";
-import SearchInput from "../component/SearchInput";
 import MovieComponent from "../component/MovieComp";
 import { useNavigate } from "react-router-dom";
 
@@ -38,12 +38,13 @@ function Movielist({ selectedDate }) {
         const filteredMovies = movieData.filter(
           (movie) =>
             selectedDateObj.getDate() === new Date(movie.startDate).getDate() &&
-            selectedDateObj.getMonth() === new Date(movie.startDate).getMonth() &&
-            selectedDateObj.getFullYear() === new Date(movie.startDate).getFullYear() &&
+            selectedDateObj.getMonth() ===
+              new Date(movie.startDate).getMonth() &&
+            selectedDateObj.getFullYear() ===
+              new Date(movie.startDate).getFullYear() &&
             movie.cinemaNumber === selectedCinema
         );
         setDisplayedMovies(filteredMovies);
-
       } catch (error) {
         console.log(error.message);
       }
@@ -51,7 +52,6 @@ function Movielist({ selectedDate }) {
 
     fetchMovies();
   }, [selectedDate, selectedCinema]);
-
 
   const onTextChange = (event) => {
     updateSearchQuery(event.target.value);
@@ -87,13 +87,16 @@ function Movielist({ selectedDate }) {
         </ButtonContainer>
         <Searchbar>
           <SearchIcon src="/magnifying-glass.png" alt="MagnifyingGlass" />
-          <SearchInput onChange={onTextChange} />
+          <SearchInput
+            onChange={onTextChange}
+            theme={{ searchBarWeight: 2 }}
+            placeholder="Search Movies"
+          />
         </Searchbar>
       </Header>
       <MovielistContainer>
         {displayedMovies.map((movie, index) => (
-
-            <MovieComponent key={index} movie={movie} />
+          <MovieComponent key={index} movie={movie} />
         ))}
       </MovielistContainer>
     </Container>
@@ -101,4 +104,3 @@ function Movielist({ selectedDate }) {
 }
 
 export default Movielist;
-
