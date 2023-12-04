@@ -27,6 +27,7 @@ const MenuScreen = ({ onButtonClick }) => {
   } else if (selectedOption === "Reserve") {
     navigate("/reservationDate")
   }
+  
   return (
     <div
       style={{

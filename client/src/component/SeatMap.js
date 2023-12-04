@@ -1,66 +1,77 @@
 // components/SeatMap.js
 import React, { useState } from "react";
-import { Button, Space } from "antd";
+import { Button } from "antd";
+import Seats from "./seats";
 import "../stylesheets/seatmap.css";
 
 const generateSeatData = () => {
   const rows = ["A", "B", "C", "D", "E", "F", "G", "H"];
   const columns = ["1", "2", "3", "4", "5"];
 
-  const seatData = [];
-
-  rows.forEach((row) => {
-    const rowSeats = columns.map((column) => ({
+  const seatData = rows.map((row) =>
+    columns.map((column) => ({
       seat_name: row + column,
       availability: "available",
-    }));
-    seatData.push(rowSeats);
-  });
+    }))
+  );
 
   return seatData;
 };
 
-const SeatMap = ({ onSeatClick, bookedSeats }) => {
+const SeatMap = ({ onSeatClick, seatData, bookedSeats }) => {
   const [seats, setSeats] = useState(generateSeatData());
+  const [selectedSeats, setSelectedSeats] = useState([]);
 
-  const handleSeatClick = (rowIndex, columnIndex) => {
+  const handleSeatClick = (rowIndex, colIndex, isReserve) => {
     const updatedSeats = [...seats];
-    const seat = updatedSeats[rowIndex][columnIndex];
+    const seat = updatedSeats[rowIndex][colIndex];
 
-    // Toggle between 'available' and 'selected'
     seat.availability =
       seat.availability === "available" ? "selected" : "available";
 
     setSeats(updatedSeats);
 
-    // Pass the seat information to the parent component
     onSeatClick(seat);
+    toggleReservation(rowIndex, colIndex, isReserve);
   };
 
+  const toggleReservation = (row, col, isReserved) => {
+    if (!isReserved) {
+      const seat = { row, col };
+      const seatIndex = selectedSeats.findIndex(
+          (selected) => selected.row === row && selected.col === col
+      );
+
+      if (seatIndex > -1) {
+          const updatedSelectedSeats = [...selectedSeats];
+          updatedSelectedSeats.splice(seatIndex, 1);
+          setSelectedSeats(updatedSelectedSeats);
+      } else {
+          setSelectedSeats([...selectedSeats, seat]);
+      }
+  }
+  };
+
+  console.log(seatData);
+
   return (
-    <div>
-      {seats.map((row, rowIndex) => (
-        <div key={rowIndex} className="seat-row">
-          {row.map((seat, columnIndex) => (
-            <Button
-              key={seat.seat_name}
-              type={
-                seat.availability === "selected"
-                  ? "danger"
-                  : bookedSeats.includes(seat.seat_name)
-                  ? "default"
-                  : "primary"
-              }
-              className="seat"
-              onClick={() => handleSeatClick(rowIndex, columnIndex)}
-              disabled={bookedSeats.includes(seat.seat_name)}
-              style={{ padding: "8px" }} // Add this line for padding
-            >
-              {seat.seat_name}
-            </Button>
-          ))}
-        </div>
-      ))}
+    <div className="d-flex align-items-center justify-content-center text-center">
+      <div className="seat-grid">
+        {seatData.map((row, rowIndex) => (
+          <div key={rowIndex} className="seat-row">
+            {row.map((seat, colIndex) => (
+              <Button
+                key={colIndex}
+                type={seat ? "danger" : "primary"}
+                className="seat"
+                onClick={() => handleSeatClick(rowIndex, colIndex, seat)}
+              >
+                <Seats seatData={{ row: rowIndex, col: colIndex + 1 }} />
+              </Button>
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

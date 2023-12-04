@@ -43,6 +43,7 @@ function Movielist({ selectedDate }) {
             movie.cinemaNumber === selectedCinema
         );
         setDisplayedMovies(filteredMovies);
+
       } catch (error) {
         console.log(error.message);
       }
@@ -51,10 +52,6 @@ function Movielist({ selectedDate }) {
     fetchMovies();
   }, [selectedDate, selectedCinema]);
 
-  function moveToSeatLayout() {
-    console.log("asd");
-    navigate("/seat-layout");
-  }
 
   const onTextChange = (event) => {
     updateSearchQuery(event.target.value);
@@ -95,9 +92,8 @@ function Movielist({ selectedDate }) {
       </Header>
       <MovielistContainer>
         {displayedMovies.map((movie, index) => (
-          <Button key={index} onClick={moveToSeatLayout}>
-            <MovieComponent movie={movie} />
-          </Button>
+
+            <MovieComponent key={index} movie={movie} />
         ))}
       </MovielistContainer>
     </Container>

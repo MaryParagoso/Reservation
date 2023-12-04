@@ -24,12 +24,13 @@ const App = () => {
         <Route path="/" element={<Landing />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/registration" element={<Registration />}></Route>
-        <Route path="/menu" element={<MenuPage/>}></Route>
+        <Route path="/menu" element={<MenuPage />}></Route>
         <Route path="/reservationDate" element={<ReservationPath getSelectedDate={getSelectedDate}/>}></Route>
-        <Route path="/seat-layout" element={<SeatLayout />}></Route>
         <Route path="/movielist" element={<Movielist selectedDate={selectedDate}/>}></Route>
+        <Route path="/:id" element={<SeatLayout />}></Route>
+
         <Route
-          path="/confirmation"
+          path="/confirmation/:id"
           element={<ReservationConfirmation />}
         ></Route>
       </Routes>

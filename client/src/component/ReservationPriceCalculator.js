@@ -10,10 +10,14 @@ const ReservationPriceCalculator = ({
   const premiumTicketPrice = 500;
   const seniorCitizenDiscount = 0.2; // 20%
 
+  console.log(seatNumbers,
+    seniorCitizenStatus,
+    isPremium);
+
   const calculateTotalPrice = () => {
     let totalPrice = 0;
 
-    seatNumbers.forEach((seat, index) => {
+    seatNumbers.data.forEach((seat, index) => {
       const ticketPrice = isPremium ? premiumTicketPrice : regularTicketPrice;
       const discountedPrice =
         seniorCitizenStatus[index] && !isPremium
