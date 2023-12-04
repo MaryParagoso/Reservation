@@ -9,13 +9,14 @@ import {
   Context2,
 } from "../stylesheets/layout";
 import ReservationPriceCalculator from "../component/ReservationPriceCalculator";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const { Content } = Layout;
 
 const ReservationConfirmation = () => {
   const location = useLocation();
   const data = location.state;
+  const navigate = useNavigate();
   const [totalPrice, setTotalPrice] = useState(0);
 
   const [seniorCitizenStatus, setSeniorCitizenStatus] = useState(
@@ -35,13 +36,15 @@ const ReservationConfirmation = () => {
       return;
     }
 
-    const ticketData = 143;
+    const ticketData = data.tickets.length ? parseInt(data.tickets[data.tickets.length - 1].ticketNumber) + 1 : 143;
+
+    // console.log(ticketData);
 
     try {
       const seatNamesArray = data.data.map((seat) => seat.seat_name);
 
       const requestBody = {
-        ticketNumber: ticketData + 1,
+        ticketNumber: ticketData,
         movieId: data.movieData.data._id,
         seats: seatNamesArray,
         numSenior: seniorCitizenStatus.length,
@@ -62,12 +65,16 @@ const ReservationConfirmation = () => {
       }
 
       const addedTicket = await response.json();
-      message.success(`${addedTicket.ticketNumber} added`);
+      message.success(`${addedTicket.ticketNumber} reserved`);
+      // console.log(data);
+      navigate(`/${data.data._id}`, { state: { data: data.data, movieData: data.movieData, tickets: data.tickets} });
     } catch (error) {
       console.error("Error adding ticket:", error);
       message.error("Failed to add ticket. Please try again.");
     }
   };
+
+  console.log(data);
 
   return (
     <div>

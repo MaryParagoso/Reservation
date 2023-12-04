@@ -11,6 +11,7 @@ import {
   formItem,
   buttonLogin,
   buttonSignup,
+  labelStyle,
 } from "../stylesheets/mainUI";
 import { Link } from "react-router-dom";
 
@@ -69,7 +70,7 @@ function Login() {
                           <h1 style={sectionTitle}>Log In to Your Account</h1>
                           <Form.Item
                               style={formItem}
-                              label="Username"
+                              label={<span style={labelStyle}>Username</span>}
                               name="username"
                               rules={[
                                   {
@@ -82,7 +83,7 @@ function Login() {
                           </Form.Item>
                           <Form.Item
                               style={formItem}
-                              label="Password"
+                              label={<span style={labelStyle}>Password</span>}
                               name="password"
                               rules={[
                                   {
