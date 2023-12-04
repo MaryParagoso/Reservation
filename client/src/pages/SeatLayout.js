@@ -105,15 +105,6 @@ console.log(data);
       <div >
         <Layout>
         <div style={{ display: 'flex' }}>
-          <div style={legend}>
-            <h1>Legends:</h1>
-            <div style={Context}>Seat not selected</div>
-            <Button style ={unselectedButton}>A0</Button>
-            <div style={Context}>Seat selected</div>
-            <Button style ={selectedButton}>A0</Button>
-            <div style={Context}>Seat reserved</div>
-            <Button style={seatButton} disabled="true">A0</Button>
-          </div>
             <Content style={contentStyle}>
               <div style={center}>
                 <h1 style={Context2}>Seat Map</h1>

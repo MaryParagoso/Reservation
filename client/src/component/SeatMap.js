@@ -3,11 +3,19 @@ import React, { useState } from "react";
 import { Button } from "antd";
 import Seats from "./seats";
 import "../stylesheets/seatmap.css";
-import { Context, seatRow, seatButton, highlight, legend, unselectedButton, selectedButton, selectedSeats } from '../stylesheets/layout';
-import { Layout } from 'antd';
+import {
+  Context,
+  seatRow,
+  seatButton,
+  highlight,
+  legend,
+  unselectedButton,
+  selectedButton,
+  selectedSeats,
+} from "../stylesheets/layout";
+import { Layout } from "antd";
 
 const { Content } = Layout;
-
 
 const generateSeatData = () => {
   const rows = ["A", "B", "C", "D", "E", "F", "G", "H"];
@@ -44,42 +52,53 @@ const SeatMap = ({ onSeatClick, seatData, bookedSeats }) => {
     if (!isReserved) {
       const seat = { row, col };
       const seatIndex = selectedSeats.findIndex(
-          (selected) => selected.row === row && selected.col === col
+        (selected) => selected.row === row && selected.col === col
       );
 
       if (seatIndex > -1) {
-          const updatedSelectedSeats = [...selectedSeats];
-          updatedSelectedSeats.splice(seatIndex, 1);
-          setSelectedSeats(updatedSelectedSeats);
+        const updatedSelectedSeats = [...selectedSeats];
+        updatedSelectedSeats.splice(seatIndex, 1);
+        setSelectedSeats(updatedSelectedSeats);
       } else {
-          setSelectedSeats([...selectedSeats, seat]);
+        setSelectedSeats([...selectedSeats, seat]);
       }
-  }
+    }
   };
 
   // console.log(seatData);
 
   return (
-
-    <div className="d-flex align-items-center justify-content-center text-center">
-      <div className="seat-grid">
-        {seatData.map((row, rowIndex) => (
-          <div key={rowIndex} className="seat-row">
-            {row.map((seat, colIndex) => (
-              <Button
-                key={colIndex}
-                type={seat ? "danger" : "primary"}
-                className="seat"
-                onClick={() => handleSeatClick(rowIndex, colIndex, seat)}
-              >
-                <Seats seatData={{ row: rowIndex, col: colIndex + 1 }} />
-              </Button>
-            ))}
-          </div>
-        ))}
+    <div style={{ display: "flex" }}>
+      <div style={legend}>
+        <h1>Legends:</h1>
+        <div style={Context}>Seat not selected</div>
+        <Button style={unselectedButton}>A0</Button>
+        <div style={Context}>Seat selected</div>
+        <Button style={selectedButton}>A0</Button>
+        <div style={Context}>Seat reserved</div>
+        <Button style={seatButton} disabled="true">
+          A0
+        </Button>
+      </div>
+      <div className="d-flex align-items-center justify-content-center text-center">
+        <div className="seat-grid">
+          {seatData.map((row, rowIndex) => (
+            <div key={rowIndex} className="seat-row">
+              {row.map((seat, colIndex) => (
+                <Button
+                  key={colIndex}
+                  type={seat ? "danger" : "primary"}
+                  className="seat"
+                  onClick={() => handleSeatClick(rowIndex, colIndex, seat)}
+                >
+                  <Seats seatData={{ row: rowIndex, col: colIndex + 1 }} />
+                </Button>
+              ))}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
-    
   );
 };
 
