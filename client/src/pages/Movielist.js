@@ -30,6 +30,7 @@ function Movielist() {
         }
 
         const movieData = await response.json();
+        console.log(movieData);
         setDisplayedMovies(movieData);
       } catch (error) {
         console.log(error.message);
@@ -39,10 +40,6 @@ function Movielist() {
     fetchMovies();
   }, []);
 
-  function moveToSeatLayout() {
-    console.log("asd");
-    navigate("/seat-layout");
-  }
 
   const onTextChange = (event) => {
     updateSearchQuery(event.target.value);
@@ -78,9 +75,7 @@ function Movielist() {
       </Header>
       <MovielistContainer>
         {displayedMovies.map((movie, index) => (
-          <Button onClick={moveToSeatLayout}>
             <MovieComponent key={index} movie={movie} />
-          </Button>
         ))}
       </MovielistContainer>
     </Container>

@@ -1,5 +1,6 @@
 // MovieComp.js
 import React from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const MovieContainer = styled.div`
@@ -48,6 +49,7 @@ const MovieTime = styled.span`
 
 const MovieComponent = ({ movie }) => {
   const startDate = new Date(movie.startDate);
+  const navigate = useNavigate();
 
   // Get the formatted date
   const formattedDate = startDate.toLocaleDateString("en-US", {
@@ -55,8 +57,16 @@ const MovieComponent = ({ movie }) => {
     month: "2-digit",
     day: "2-digit",
   });
+
+  const moveToSeatLayout = () => {
+    navigate(`/${movie._id}`, { state: { data: movie } });
+};
+
+console.log(movie);
+
   return (
-    <MovieContainer>
+    <MovieContainer
+    onClick={moveToSeatLayout}>
       <CoverImage src={movie.image} />
       <MovieName>{movie.movieTitle}</MovieName>
       <InfoColumn>

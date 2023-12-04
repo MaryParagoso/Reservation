@@ -29,6 +29,7 @@ const MenuScreen = ({ onButtonClick }) => {
       />
     );
   }
+  
   return (
     <div
       style={{
