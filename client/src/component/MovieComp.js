@@ -72,6 +72,7 @@ console.log(movie);
       <InfoColumn>
         <span>Date: {formattedDate}</span>
         <span>Genre: {movie.genre}</span>
+        <span>Cinema Number: {movie.cinemaNumber}</span>
         <MovieTime>Time: {movie.time}</MovieTime>
       </InfoColumn>
     </MovieContainer>

@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Button } from "antd";
+import {useNavigate} from "react-router-dom"
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import CancellationPath from "./CancellationPath";
 import ReservationPath from "./ReservationPath";
 
 const MenuScreen = ({ onButtonClick }) => {
   const [selectedOption, setSelectedOption] = useState(null);
-
+  const navigate = useNavigate();
   const handleButtonClick = (choice) => {
     setSelectedOption(choice);
   };
@@ -24,10 +25,7 @@ const MenuScreen = ({ onButtonClick }) => {
       />
     );
   } else if (selectedOption === "Reserve") {
-    return (
-      <ReservationPath
-      />
-    );
+    navigate("/reservationDate")
   }
   
   return (
