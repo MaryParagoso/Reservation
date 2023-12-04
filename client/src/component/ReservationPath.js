@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Form, Select } from "antd";
 import { Container, CancelWallpaper } from "../stylesheets/CssCancellation";
 import { Button } from "antd";
@@ -8,7 +8,13 @@ import { Link } from "react-router-dom";
 
 const { Option } = Select;
 
-const ReservationPath = ({ selectedDate, onDateChange, onBackButtonClick }) => {
+const ReservationPath = ({selectedDate, onDateChange, onBackButtonClick, getSelectedDate}) => {
+
+  const setDate = (date) => {
+    console.log(date)
+    getSelectedDate(date)
+  }
+
   const generateDateOptions = () => {
     const today = new Date();
     const dateOptions = [];
@@ -23,6 +29,8 @@ const ReservationPath = ({ selectedDate, onDateChange, onBackButtonClick }) => {
     return dateOptions;
   };
 
+
+ 
   return (
     <Container>
       <CancelWallpaper>
@@ -73,8 +81,7 @@ const ReservationPath = ({ selectedDate, onDateChange, onBackButtonClick }) => {
                       border: "1px solid red",
                     }}
                     value={selectedDate}
-                    onChange={onDateChange}
-                  >
+                    onChange={(date) => setDate(date)}>
                     {generateDateOptions().map((date) => (
                       <Option key={date} value={date}>
                         {date}

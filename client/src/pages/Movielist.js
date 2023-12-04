@@ -14,13 +14,18 @@ import SearchInput from "../component/SearchInput";
 import MovieComponent from "../component/MovieComp";
 import { useNavigate } from "react-router-dom";
 
-function Movielist() {
+function Movielist({ selectedDate }) {
   const navigate = useNavigate();
   const [searchQuery, updateSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [displayedMovies, setDisplayedMovies] = useState([]);
+  const [selectedCinema, setSelectedCinema] = useState(1); // Default to Cinema 1
+
+  console.log(selectedDate);
 
   useEffect(() => {
+    const dateString = selectedDate;
+    const selectedDateObj = new Date(dateString);
     const fetchMovies = async () => {
       try {
         const response = await fetch("http://localhost:5000/api/movies/all");
@@ -30,14 +35,21 @@ function Movielist() {
         }
 
         const movieData = await response.json();
-        setDisplayedMovies(movieData);
+        const filteredMovies = movieData.filter(
+          (movie) =>
+            selectedDateObj.getDate() === new Date(movie.startDate).getDate() &&
+            selectedDateObj.getMonth() === new Date(movie.startDate).getMonth() &&
+            selectedDateObj.getFullYear() === new Date(movie.startDate).getFullYear() &&
+            movie.cinemaNumber === selectedCinema
+        );
+        setDisplayedMovies(filteredMovies);
       } catch (error) {
         console.log(error.message);
       }
     };
 
     fetchMovies();
-  }, []);
+  }, [selectedDate, selectedCinema]);
 
   function moveToSeatLayout() {
     console.log("asd");
@@ -52,12 +64,11 @@ function Movielist() {
     setCurrentPage(page);
   };
 
+  const switchCinema = (cinemaNumber) => {
+    setSelectedCinema(cinemaNumber);
+  };
+
   const itemsPerPage = 10;
-
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-
-  // const displayedMovies = moviesData.slice(startIndex, endIndex);
 
   return (
     <Container>
@@ -67,9 +78,15 @@ function Movielist() {
           Movie Lists
         </Appname>
         <ButtonContainer>
-          <Button>Cinema 1</Button>
-          <Button>Cinema 2</Button>
-          <Button>Cinema 3</Button>
+          <Button onClick={() => switchCinema(1)} active={selectedCinema === 1}>
+            Cinema 1
+          </Button>
+          <Button onClick={() => switchCinema(2)} active={selectedCinema === 2}>
+            Cinema 2
+          </Button>
+          <Button onClick={() => switchCinema(3)} active={selectedCinema === 3}>
+            Cinema 3
+          </Button>
         </ButtonContainer>
         <Searchbar>
           <SearchIcon src="/magnifying-glass.png" alt="MagnifyingGlass" />
@@ -78,8 +95,8 @@ function Movielist() {
       </Header>
       <MovielistContainer>
         {displayedMovies.map((movie, index) => (
-          <Button onClick={moveToSeatLayout}>
-            <MovieComponent key={index} movie={movie} />
+          <Button key={index} onClick={moveToSeatLayout}>
+            <MovieComponent movie={movie} />
           </Button>
         ))}
       </MovielistContainer>
@@ -88,3 +105,4 @@ function Movielist() {
 }
 
 export default Movielist;
+
