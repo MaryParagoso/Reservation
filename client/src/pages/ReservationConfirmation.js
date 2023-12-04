@@ -67,7 +67,7 @@ const ReservationConfirmation = () => {
       const addedTicket = await response.json();
       message.success(`${addedTicket.ticketNumber} reserved`);
       // console.log(data);
-      navigate(`/${data.data._id}`, { state: { data: data.data, movieData: data.movieData, tickets: data.tickets} });
+      navigate(`/${data.movieData.data._id}`, { state: { data: data.data, movieData: data.movieData, tickets: data.tickets} });
     } catch (error) {
       console.error("Error adding ticket:", error);
       message.error("Failed to add ticket. Please try again.");

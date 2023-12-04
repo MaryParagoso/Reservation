@@ -80,7 +80,7 @@ const SeatMap = ({ onSeatClick, seatData, bookedSeats }) => {
           A0
         </Button>
       </div>
-      <div className="d-flex align-items-center justify-content-center text-center">
+      <div style={highlight}>
         <div className="seat-grid">
           {seatData.map((row, rowIndex) => (
             <div key={rowIndex} className="seat-row">

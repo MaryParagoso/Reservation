@@ -99,7 +99,12 @@ const SeatLayout = () => {
         setSelectedSeats([...selectedSeats, selectedSeat]);
     }
 };
-console.log(data);
+
+useEffect(()=>{
+
+}, [])
+
+console.log(selectedSeats, "haha");
 
   return (
       <div >
@@ -115,6 +120,7 @@ console.log(data);
                     bookedSeats={bookedSeats}
                     rowColData={updateSeats}
                   />
+                  {/* <p>{selec}</p> */}
                   <button style={proceedButton} onClick={reserveTickets}>Proceed</button>
                 </div>
               </div>
