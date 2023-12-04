@@ -11,6 +11,8 @@ import {
   buttonStyle,
   buttonLoginR,
   buttonSignupR,
+  labelStyle,
+  centerContent,
 } from "../stylesheets/mainUI";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -61,7 +63,7 @@ function Registration() {
             <h1 style={sectionTitle}>Create Your Account</h1>
             <Form.Item
               style={formItem}
-              label="Valid Email"
+              label={<span style={labelStyle}>Valid Email</span>}
               name="email"
               rules={[
                 {
@@ -74,7 +76,7 @@ function Registration() {
             </Form.Item>
             <Form.Item
               style={formItem}
-              label="Username"
+              label={<span style={labelStyle}>Username</span>}
               name="username"
               rules={[
                 {
@@ -87,7 +89,7 @@ function Registration() {
             </Form.Item>
             <Form.Item
               style={formItem}
-              label="Password"
+              label={<span style={labelStyle}>Password</span>}
               name="password"
               rules={[
                 {
@@ -100,7 +102,7 @@ function Registration() {
             </Form.Item>
             <Form.Item
               style={formItem}
-              label="Confirm Password"
+              label={<span style={labelStyle}>Confirm Password</span>}
               name="confirmPassword"
               rules={[
                 {

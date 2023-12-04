@@ -1,8 +1,15 @@
 // SeatLayout.js
 import React, { useEffect, useState } from "react";
 import SeatMap from "../component/SeatMap";
-import seatData from "../component/SeatData";
+// import seatData from "../component/SeatData";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Layout } from 'antd';
+import { contentStyle, center, proceedButton, Context2 } from '../stylesheets/layout';
+import { Button } from "antd";
+import { Context, seatRow, seatButton, highlight, legend, unselectedButton, selectedButton, selectedSeats } from '../stylesheets/layout';
+// import { Layout } from 'antd';
+
+const { Content } = Layout;
 
 const SeatLayout = () => {
   const navigate = useNavigate();
@@ -66,7 +73,7 @@ const SeatLayout = () => {
   }, []);
 
   const reserveTickets = async () => {
-    navigate(`/confirmation/${data._id}`, { state: { data: selectedSeats, movieData: data, tickets: ticketList} });
+    navigate(`/confirmation/${data.data._id}`, { state: { data: selectedSeats, movieData: data, tickets: ticketList} });
   };
 
   const handleSeatClick = (selectedSeat) => {
@@ -92,37 +99,39 @@ const SeatLayout = () => {
         setSelectedSeats([...selectedSeats, selectedSeat]);
     }
 };
-
-  
-
+console.log(data);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        textAlign: "center",
-        height: "100vh",
-        backgroundImage: `url("https://raw.githubusercontent.com/kishan0725/AJAX-Movie-Recommendation-System-with-Sentiment-Analysis/master/static/image.jpg")`,
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center center ",
-      }}
-    >
-      <div style={{ textAlign: "center", paddingTop: "100px" }}>
-        <h1 style={{ fontWeight: "bold", color: "white" }}>Seat Map</h1>
-        <div>
-          <SeatMap
-            seatData={seats}
-            onSeatClick={handleSeatClick}
-            bookedSeats={bookedSeats}
-            rowColData={updateSeats}
-          />
-            <button onClick={reserveTickets}>Proceed</button>
-        </div>
+      <div >
+        <Layout>
+        <div style={{ display: 'flex' }}>
+          <div style={legend}>
+            <h1>Legends:</h1>
+            <div style={Context}>Seat not selected</div>
+            <Button style ={unselectedButton}>A0</Button>
+            <div style={Context}>Seat selected</div>
+            <Button style ={selectedButton}>A0</Button>
+            <div style={Context}>Seat reserved</div>
+            <Button style={seatButton} disabled="true">A0</Button>
+          </div>
+            <Content style={contentStyle}>
+              <div style={center}>
+                <h1 style={Context2}>Seat Map</h1>
+                <div>
+                  <SeatMap
+                    seatData={seats}
+                    onSeatClick={handleSeatClick}
+                    bookedSeats={bookedSeats}
+                    rowColData={updateSeats}
+                  />
+                  <button style={proceedButton} onClick={reserveTickets}>Proceed</button>
+                </div>
+              </div>
+            </Content>
+          </div>
+        </Layout>
       </div>
-    </div>
-  );
+    );
 };
 
 export default SeatLayout;

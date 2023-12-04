@@ -19,16 +19,36 @@ const sectionTitle = {
   height: "100%",
 };
 
+// const contentStyle = {
+//   display: "flex",
+//   flexDirection: "column",
+//   justifyContent: "center",
+//   alignItems: "center",
+//   minHeight: "100vh",
+//   padding: "0 50px",
+//   color: "white",
+//   background: `linear-gradient(${overlayColor}, ${overlayColor}), url("${backgroundImageUrl}")`,
+//   boxShadow: "inset 0 0 100px rgba(0, 0, 0, 0.5)",
+// };
 const contentStyle = {
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  alignItems: "center",
-  minHeight: "100vh",
-  padding: "0 50px",
-  color: "white",
+  padding: '0',
+  minHeight: '100vh',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',  // Center content vertically
+  alignItems: 'center',       // Center content horizontally
+  color: 'white',
   background: `linear-gradient(${overlayColor}, ${overlayColor}), url("${backgroundImageUrl}")`,
-  boxShadow: "inset 0 0 100px rgba(0, 0, 0, 0.5)",
+  boxShadow: 'inset 0 0 100px rgba(0, 0, 0, 0.5)',
+};
+
+const centerContent = {
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
+  minHeight: '100vh',
+  fontSize: '20px',
 };
 
 const commonStyle = {
@@ -84,6 +104,7 @@ const formItem = {
 const inputStyle = {
   width: "350px",
   textAlign: "left",
+  fontSize: '18px',
 };
 
 const buttonStyle = {
@@ -93,10 +114,12 @@ const buttonStyle = {
 
 const buttonLogin = {
   width: "150px",
-  color: "#b20710",
   borderColor: "#b20710",
-  background: "rgba(255, 255, 255, 0.5)",
-  backdropFilter: "blur(8px)",
+  backgroundColor: "#b20710",
+  background: "rgba(255, 0, 0, 0.5)",
+  backdropFilter: "blur(5px)",
+  fontSize: '18px',
+  height: '40px',
 };
 
 const buttonLoginR = {
@@ -106,15 +129,19 @@ const buttonLoginR = {
   borderColor: "#b20710",
   background: "rgba(255, 255, 255, 0.5)",
   backdropFilter: "blur(8px)",
+  fontSize: '18px',
+  height: '40px',
 };
 
 const buttonSignup = {
   width: "150px",
   marginRight: "50px",
+  color: "#b20710",
   borderColor: "#b20710",
-  backgroundColor: "#b20710",
-  background: "rgba(255, 0, 0, 0.5)",
-  backdropFilter: "blur(5px)",
+  background: "rgba(255, 255, 255, 0.5)",
+  backdropFilter: "blur(8px)",
+  fontSize: '18px',
+  height: '40px',
 };
 
 const buttonSignupR = {
@@ -123,6 +150,12 @@ const buttonSignupR = {
   backgroundColor: "#b20710",
   background: "rgba(255, 0, 0, 0.5)",
   backdropFilter: "blur(5px)",
+  fontSize: '18px',
+  height: '40px',
+};
+
+const labelStyle = {
+  fontSize: '18px',  
 };
 
 export {
@@ -140,4 +173,6 @@ export {
   buttonSignup,
   buttonLoginR,
   buttonSignupR,
+  labelStyle,
+  centerContent
 };

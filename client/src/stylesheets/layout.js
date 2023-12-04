@@ -1,5 +1,5 @@
 const overlayColor = 'rgba(0, 0, 0, 0.5)';
-const overlayColor2 = 'rgba(0, 0, 0, 0.1)';
+const overlayColor2 = 'rgba(0, 0, 0, 0.5)';
 const backgroundImageUrl = 'https://raw.githubusercontent.com/kishan0725/AJAX-Movie-Recommendation-System-with-Sentiment-Analysis/master/static/image.jpg';
 
 const contentStyle = {
@@ -136,16 +136,82 @@ const highlight = {
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-  margin: '5px',
-  boxShadow: '0 4px 8px rgba(255, 255, 255, 255, 0.1)',
-  padding: '10px 20px 10px',
-  borderRadius: '15px',
-  backgroundColor: 'rgba(90, 90, 90, 0.5)',
+  margin: '10px',
+  boxShadow: '0 4px 8px rgba(255, 255, 255, 0.1)',
+  padding: '20px',
+  borderRadius: '10px',
+  backgroundColor: 'rgba(200, 200, 200, 0.5)',
   border: '1px solid red',
 }
 
+const seatRow = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+}
+
+const seatButton = {
+  fontSize: '18px', 
+  width: '100px', 
+  height: '38px', 
+  margin: '10px', 
+  color: 'white', 
+  borderColor: '#b20710', 
+  background: '#393a3a',
+  backdropFilter: 'blur(5px)',
+}
+
+const selectedButton = {
+  fontSize: '18px', 
+  width: '100px', 
+  height: '38px', 
+  margin: '10px', 
+  color: 'white', 
+  borderColor: '#b20710', 
+  background: '#b20710',
+  backdropFilter: 'blur(5px)',
+}
+
+const unselectedButton = {
+  fontSize: '18px', 
+  width: '100px', 
+  height: '38px', 
+  margin: '10px', 
+  color: 'white', 
+  borderColor: '#b20710', 
+  background: 'black',
+  backdropFilter: 'blur(5px)',
+}
+
+const center = {
+  textAlign: "center",
+}
+
+const proceedButton = {
+  fontSize: '20px',
+  width: '250px',
+  height: '45px',
+  color: 'white',
+  backgroundColor: '#b20710',
+  background: 'rgba(255, 0, 0, 0.5)',
+  backdropFilter: 'blur(8px)',
+  borderRadius: '10px',
+  marginTop: '10px',
+}
+
+const legend = {
+  width:'200px',
+  paddingTop: '20px',
+}
+
+const selectedSeats = {
+  width:'200px',
+  paddingTop: '20px',
+}
+
 export { highlight, overlayColor, overlayColor2, contentStyle, 
-  centerContent, Context, Context1, Context2, 
+  centerContent, Context, Context1, Context2, proceedButton,
   breadcrumbStyle, breadcrumbContent, siteLayoutContent, 
-  footerStyle, buttonLogin, buttonSignup, 
-  button1, button2, reservationButton };
+  footerStyle, buttonLogin, buttonSignup, center, legend,
+  button1, button2, reservationButton, seatRow, seatButton,
+  unselectedButton, selectedButton, selectedSeats };

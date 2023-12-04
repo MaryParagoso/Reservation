@@ -62,7 +62,7 @@ const MovieComponent = ({ movie }) => {
     navigate(`/${movie._id}`, { state: { data: movie } });
 };
 
-console.log(movie);
+// console.log(movie);
 
   return (
     <MovieContainer

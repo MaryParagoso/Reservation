@@ -3,6 +3,11 @@ import React, { useState } from "react";
 import { Button } from "antd";
 import Seats from "./seats";
 import "../stylesheets/seatmap.css";
+import { Context, seatRow, seatButton, highlight, legend, unselectedButton, selectedButton, selectedSeats } from '../stylesheets/layout';
+import { Layout } from 'antd';
+
+const { Content } = Layout;
+
 
 const generateSeatData = () => {
   const rows = ["A", "B", "C", "D", "E", "F", "G", "H"];
@@ -52,9 +57,10 @@ const SeatMap = ({ onSeatClick, seatData, bookedSeats }) => {
   }
   };
 
-  console.log(seatData);
+  // console.log(seatData);
 
   return (
+
     <div className="d-flex align-items-center justify-content-center text-center">
       <div className="seat-grid">
         {seatData.map((row, rowIndex) => (
@@ -73,6 +79,7 @@ const SeatMap = ({ onSeatClick, seatData, bookedSeats }) => {
         ))}
       </div>
     </div>
+    
   );
 };
 
