@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {Navigate} from "react-router-dom"
+import { Navigate } from "react-router-dom";
 import MenuScreen from "../component/MenuScreen";
 import CancellationPath from "../component/CancellationPath";
 
@@ -20,7 +20,6 @@ function MenuPage() {
     alert(`Proceeding with reservation on ${selectedDate}`);
   };
 
-
   return (
     <div>
       {selectedOption === null ? (
@@ -28,7 +27,7 @@ function MenuPage() {
       ) : (
         <div>
           {selectedOption === "Reserve" ? (
-           Navigate("/reservationDate")
+            Navigate("/reservationDate")
           ) : (
             <CancellationPath
               selectedReservation={selectedReservation}
@@ -37,16 +36,6 @@ function MenuPage() {
               }
             />
           )}
-
-          {/* Place the Proceed button after the selected options */}
-          {/* {selectedOption && (
-            <div>
-              <p>Selected Option: {selectedOption}</p>
-              {selectedOption === "Reserve" && selectedDate && (
-                <button onClick={handleProceedClick}>Proceed</button>
-              )}
-            </div>
-          )} */}
         </div>
       )}
     </div>
